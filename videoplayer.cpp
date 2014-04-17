@@ -85,7 +85,10 @@ void VideoPlayer::played(){
 }
 
 void VideoPlayer::reset(){
-    exit(0);
+    resetVideoPlayer();
+    QMessageBox messageBox(this);
+    messageBox.setText("The app has been reset. Please load your next video.");
+    messageBox.exec();
 }
 
 void VideoPlayer::quit(){
@@ -120,6 +123,9 @@ void VideoPlayer::setVideoFile(){
 
 void VideoPlayer::setRatio(){
     if(mHasChosenOutFile && mHasChosenVid){
+        QMessageBox messageBox(this);
+        messageBox.setText("Click two points on the screen (for scale), and we will convert from pixels to whatever unit you chose.");
+        messageBox.exec();
         mIsChoosingRatio = true;
     } else if (!mHasChosenOutFile){
         QMessageBox messageBox(this);
@@ -145,14 +151,10 @@ void VideoPlayer::seek(int intToSeekBy){
 //        usleep(1000);
 //        qDebug() << mplayer->position();
     } else {
-
+        resetVideoPlayer();
         QMessageBox messageBox(this);
         messageBox.setText("Select next video and output file!\nYour results are safely stored in your output file. Make sure to name your output file something different this time though :)");
         messageBox.exec();
-
-        mHasChosenOutFile = false;
-        mHasChosenVid = false;
-        mRatio = 1;
     }
 }
 
@@ -206,15 +208,11 @@ QWidget* VideoPlayer::getButtonsWidget(){
  }
 
  void VideoPlayer::resetVideoPlayer(){
-     QVideoWidget* vid_widget = new QVideoWidget();
-     vid_widget->setAspectRatioMode(Qt::IgnoreAspectRatio);
-     vid_widget->setMinimumSize(QSize(1280, 600));
-     vid_widget->setMaximumSize(QSize(10000,5000));
-     vid_widget->setContentsMargins(0,0,0,0);
-     mplayer->setVideoOutput(vid_widget);
-     mplayer->setPlaybackRate(1);
-     mplayer->play();
-     mplayer->pause();
+     mplayer->stop();
+     mplayer->media() = NULL;
+     mHasChosenOutFile = false;
+     mHasChosenVid = false;
+     mRatio = 1;
  }
 
  QVideoWidget* VideoPlayer::setVideoPlayer(){
