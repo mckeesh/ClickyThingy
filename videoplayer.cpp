@@ -86,6 +86,7 @@ void VideoPlayer::played(){
 
 void VideoPlayer::reset(){
     resetVideoPlayer();
+    mCoordinatesTable->clear();
     QMessageBox messageBox(this);
     messageBox.setText("The app has been reset. Please load your next video.");
     messageBox.exec();
