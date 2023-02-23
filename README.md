@@ -9,4 +9,4 @@ This software was created specifically for Physics 211 at Westminster College by
 
 At the time of writing, ClickyThingy only works for Macs, but the plan is to make it cross-platform.
 
-You can sumbit bug reports to me at https://github.com/smckee6192/ClickyThingy or email me personally at smckee6192@gmail.com
+You can sumbit bug reports to me here
